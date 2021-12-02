@@ -150,7 +150,7 @@ const ProductQuickviews = (props) => {
                           </p>
                           <a
                             href="/"
-                            className="ml-3 text-sm font-medium text-indigo-600 hover:text-indigo-500"
+                            className="ml-3 text-sm font-medium text-blue-600 hover:text-blue-500"
                           >
                             {product.reviewCount} reviews
                           </a>
@@ -221,7 +221,7 @@ const ProductQuickviews = (props) => {
                             </h4>
                             <a
                               href="/"
-                              className="text-sm font-medium text-indigo-600 hover:text-indigo-500"
+                              className="text-sm font-medium text-blue-600 hover:text-blue-500"
                             >
                               Size guide
                             </a>
@@ -246,7 +246,7 @@ const ProductQuickviews = (props) => {
                                       size.inStock
                                         ? "bg-white shadow-sm text-gray-900 cursor-pointer"
                                         : "bg-gray-50 text-gray-200 cursor-not-allowed",
-                                      active ? "ring-2 ring-indigo-500" : "",
+                                      active ? "ring-2 ring-blue-500" : "",
                                       "group relative border rounded-md py-3 px-4 flex items-center justify-center text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1"
                                     )
                                   }
@@ -261,7 +261,7 @@ const ProductQuickviews = (props) => {
                                           className={classNames(
                                             active ? "border" : "border-2",
                                             checked
-                                              ? "border-indigo-500"
+                                              ? "border-blue-500"
                                               : "border-transparent",
                                             "absolute -inset-px rounded-md pointer-events-none"
                                           )}
@@ -298,7 +298,7 @@ const ProductQuickviews = (props) => {
 
                         <button
                           type="submit"
-                          className="mt-6 w-full bg-indigo-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500"
+                          className="mt-6 w-full bg-blue-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
                         >
                           Add to bag
                         </button>
