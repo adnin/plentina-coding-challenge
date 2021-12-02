@@ -1,7 +1,9 @@
 import Product from "../components/Product";
+import ProductQuickviews from "../components/ProductQuickviews";
 
 const HomeScreen = () => {
   const products = [1, 2, 3, 4, 5, 6, 7, 8, 9];
+  const selectedProduct = null;
   return (
     <div className="bg-white">
       <div className="max-w-2xl mx-auto py-16 px-4 sm:py-24 sm:px-6 lg:max-w-7xl lg:px-8">
@@ -15,6 +17,7 @@ const HomeScreen = () => {
           ))}
         </div>
       </div>
+      <ProductQuickviews open={true} />
     </div>
   );
 };
