@@ -1,3 +1,4 @@
+import Loader from "../components/Loader";
 import Product from "../components/Product";
 import ProductQuickviews from "../components/ProductQuickviews";
 
@@ -10,13 +11,15 @@ const HomeScreen = () => {
         <h4 className="text-2xl font-extrabold tracking-tight text-blue-500">
           How fast do you want to go?
         </h4>
-
         <div className="mt-6 grid grid-cols-1 gap-y-10 gap-x-6 sm:grid-cols-2 lg:grid-cols-4 xl:gap-x-8">
           {products.map((product) => (
             <Product key={product} />
           ))}
         </div>
+
+        <Loader />
       </div>
+
       <ProductQuickviews open={true} />
     </div>
   );
