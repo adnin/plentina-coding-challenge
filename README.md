@@ -18,9 +18,16 @@ yarn test
 ```
 yarn test:e2e
 ```
+
+![alt text](https://github.com/adnin/plentina-coding-challenge/blob/main/screenshots/Screenshot_2.png?raw=true)
+
 ### Compiles and minifies for production
 ```
 yarn build
 ```
 
+<<<<<<< HEAD
+[Link to Demo](https://react-redux-36fdd.web.app/)
+=======
 ![alt text](https://github.com/adnin/plentina-coding-challenge/blob/main/screenshots/Screenshot_2.png?raw=true)
+>>>>>>> 4e82a76907e4b4e75da575b60bd34e900bb71f79
