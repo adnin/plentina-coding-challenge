@@ -1,8 +1,8 @@
 const Loader = () => {
   return (
-    <div class="flex justify-center flex-col items-center">
+    <div className="flex h-screen justify-center flex-col items-center">
       <div
-        class="
+        className="
         loader
         ease-linear
         rounded-full

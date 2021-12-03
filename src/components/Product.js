@@ -1,33 +1,34 @@
+import NumberFormat from "react-number-format";
+
 const Product = (props) => {
-  const product = {
-    name: "Test Product",
-    imageSrc:
-      "https://viewqwest.com/wp-content/uploads/2021/06/tiles_n_build_1Gbps.png",
-    imageAlt: "Router",
-    href: "#",
-    color: "red",
-    price: 150
-  };
+  const product = props.product;
   return (
     <div className="group relative">
-      <div className="w-full min-h-80 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-80 lg:aspect-none">
+      <div className="w-full min-h-64 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-64 lg:aspect-none">
         <img
-          src={product.imageSrc}
-          alt={product.imageAlt}
+          src={product.image}
+          alt={product.image}
           className="object-contain w-full h-full object-center lg:w-full lg:h-full"
         />
       </div>
       <div className="mt-4 flex justify-between">
         <div>
           <h3 className="text-sm text-gray-700">
-            <a href={product.href}>
+            <span>
               <span aria-hidden="true" className="absolute inset-0" />
-              {product.name}
-            </a>
+              {product.speed}
+            </span>
           </h3>
-          <p className="mt-1 text-sm text-gray-500">{product.color}</p>
+          <p className="mt-1 text-sm text-gray-500">{product.plan_type}</p>
         </div>
-        <p className="text-sm font-medium text-gray-900">{product.price}</p>
+        <p className="text-sm font-medium text-gray-900">
+          <NumberFormat
+            value={product.default_router.price}
+            displayType="text"
+            thousandSeparator={true}
+            prefix="$"
+          />
+        </p>
       </div>
     </div>
   );
