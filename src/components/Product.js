@@ -4,7 +4,7 @@ const Product = (props) => {
   const product = props.product;
   return (
     <div className="group relative">
-      <div className="w-full min-h-64 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-64 lg:aspect-none">
+      <div className="w-full min-h-64 bg-gray-200 aspect-w-1 aspect-h-1 rounded-md overflow-hidden group-hover:opacity-75 lg:h-64 lg:aspect-none shadow-md">
         <img
           src={product.image}
           alt={product.image}
@@ -20,10 +20,10 @@ const Product = (props) => {
                 onClick={props.open}
                 className="absolute inset-0"
               />
-              {product.speed}
+              <span className="text-red-600 font-bold">{product.speed}</span>
             </span>
           </h3>
-          <p className="mt-1 text-sm text-gray-500">{product.plan_type}</p>
+          <p className="mt-1 text-sm text-gray-400">{product.plan_type}</p>
         </div>
         <p className="text-sm font-medium text-gray-900">
           <NumberFormat
