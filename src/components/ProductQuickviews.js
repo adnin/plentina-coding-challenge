@@ -22,6 +22,7 @@ import { StarIcon } from "@heroicons/react/solid";
 import NumberFormat from "react-number-format";
 
 const product = {
+  id: 0,
   name: "",
   price: 0,
   rating: 3.9,
@@ -113,7 +114,10 @@ const ProductQuickviews = (props) => {
                     />
                   </div>
                   <div className="sm:col-span-8 lg:col-span-7">
-                    <h2 className="text-2xl font-extrabold text-red-600 sm:pr-12">
+                    <h2
+                      data-test="product-id"
+                      className="text-2xl font-extrabold text-red-600 sm:pr-12"
+                    >
                       {product.name}
                     </h2>
 
