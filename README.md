@@ -22,3 +22,5 @@ yarn test:e2e
 ```
 yarn build
 ```
+
+![alt text](https://github.com/adnin/plentina-coding-challenge/blob/main/screenshots/Screenshot_2.png?raw=true)
