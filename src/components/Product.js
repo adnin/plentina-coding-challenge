@@ -15,7 +15,11 @@ const Product = (props) => {
         <div>
           <h3 className="text-sm text-gray-700">
             <span>
-              <span aria-hidden="true" className="absolute inset-0" />
+              <span
+                aria-hidden="true"
+                onClick={props.open}
+                className="absolute inset-0"
+              />
               {product.speed}
             </span>
           </h3>

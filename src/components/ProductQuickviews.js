@@ -14,10 +14,12 @@
   }
   ```
 */
-import { Fragment, useState } from "react";
+import { Fragment, useState, useEffect } from "react";
 import { Dialog, RadioGroup, Transition } from "@headlessui/react";
 import { XIcon } from "@heroicons/react/outline";
 import { StarIcon } from "@heroicons/react/solid";
+
+import NumberFormat from "react-number-format";
 
 const product = {
   name: "Basic Tee 6-Pack ",
@@ -33,7 +35,7 @@ const product = {
     { name: "Gray", class: "bg-gray-200", selectedClass: "ring-gray-400" },
     { name: "Black", class: "bg-gray-900", selectedClass: "ring-gray-900" }
   ],
-  sizes: [
+  vas: [
     { name: "XXS", inStock: true },
     { name: "XS", inStock: true },
     { name: "S", inStock: true },
@@ -50,16 +52,33 @@ const classNames = (...classes) => {
 };
 
 const ProductQuickviews = (props) => {
-  const [open, setOpen] = useState(props.open);
+  const [show, setShow] = useState(props.show);
   const [selectedColor, setSelectedColor] = useState(product.colors[0]);
-  const [selectedSize, setSelectedSize] = useState(product.sizes[2]);
+  const [selectedSize, setSelectedSize] = useState(product.vas[2]);
+
+  console.log(props.product);
+  if (props.product) {
+    product.imageSrc = props.product.image;
+    product.name = props.product.default_router.name;
+    product.price = props.product.default_router.price;
+    product.vas = props.product.vas;
+  }
+  const showModalHandler = (value) => {
+    props.setShowModal(false);
+    setShow(value);
+  };
+  useEffect(() => {
+    setShow(props.show);
+  }, [props]);
 
   return (
-    <Transition.Root show={open} as={Fragment}>
+    <Transition.Root show={show} as={Fragment}>
       <Dialog
         as="div"
         className="fixed z-20 inset-0 overflow-y-auto"
-        onClose={setOpen}
+        onClose={() => {
+          showModalHandler(false);
+        }}
       >
         <div
           className="flex min-h-screen text-center md:block md:px-2 lg:px-4"
@@ -98,22 +117,24 @@ const ProductQuickviews = (props) => {
                 <button
                   type="button"
                   className="absolute top-4 right-4 text-gray-400 hover:text-gray-500 sm:top-8 sm:right-6 md:top-6 md:right-6 lg:top-8 lg:right-8"
-                  onClick={() => setOpen(false)}
+                  onClick={() => {
+                    showModalHandler(false);
+                  }}
                 >
                   <span className="sr-only">Close</span>
                   <XIcon className="h-6 w-6" aria-hidden="true" />
                 </button>
 
                 <div className="w-full grid grid-cols-1 gap-y-8 gap-x-6 items-start sm:grid-cols-12 lg:gap-x-8">
-                  <div className="aspect-w-2 aspect-h-3 rounded-lg bg-gray-100 overflow-hidden sm:col-span-4 lg:col-span-5">
+                  <div className="aspect-w-2 aspect-h-2 rounded-lg bg-gray-100 overflow-hidden sm:col-span-4 lg:col-span-5">
                     <img
                       src={product.imageSrc}
                       alt={product.imageAlt}
-                      className="object-center object-cover"
+                      className="object-center object-contain"
                     />
                   </div>
                   <div className="sm:col-span-8 lg:col-span-7">
-                    <h2 className="text-2xl font-extrabold text-gray-900 sm:pr-12">
+                    <h2 className="text-2xl font-extrabold text-red-600 sm:pr-12">
                       {product.name}
                     </h2>
 
@@ -125,7 +146,14 @@ const ProductQuickviews = (props) => {
                         Product information
                       </h3>
 
-                      <p className="text-2xl text-gray-900">{product.price}</p>
+                      <p className="text-2xl text-gray-900">
+                        <NumberFormat
+                          value={product.price}
+                          displayType="text"
+                          thousandSeparator={true}
+                          prefix="$"
+                        />
+                      </p>
 
                       {/* Reviews */}
                       <div className="mt-6">
@@ -137,7 +165,7 @@ const ProductQuickviews = (props) => {
                                 key={rating}
                                 className={classNames(
                                   product.rating > rating
-                                    ? "text-gray-900"
+                                    ? "text-yellow-500"
                                     : "text-gray-200",
                                   "h-5 w-5 flex-shrink-0"
                                 )}
@@ -148,12 +176,6 @@ const ProductQuickviews = (props) => {
                           <p className="sr-only">
                             {product.rating} out of 5 stars
                           </p>
-                          <a
-                            href="/"
-                            className="ml-3 text-sm font-medium text-blue-600 hover:text-blue-500"
-                          >
-                            {product.reviewCount} reviews
-                          </a>
                         </div>
                       </div>
                     </section>
@@ -167,141 +189,38 @@ const ProductQuickviews = (props) => {
                       </h3>
 
                       <form>
-                        {/* Colors */}
-                        <div>
-                          <h4 className="text-sm text-gray-900 font-medium">
-                            Color
-                          </h4>
-
-                          <RadioGroup
-                            value={selectedColor}
-                            onChange={setSelectedColor}
-                            className="mt-4"
-                          >
-                            <RadioGroup.Label className="sr-only">
-                              Choose a color
-                            </RadioGroup.Label>
-                            <div className="flex items-center space-x-3">
-                              {product.colors.map((color) => (
-                                <RadioGroup.Option
-                                  key={color.name}
-                                  value={color}
-                                  className={({ active, checked }) =>
-                                    classNames(
-                                      color.selectedClass,
-                                      active && checked
-                                        ? "ring ring-offset-1"
-                                        : "",
-                                      !active && checked ? "ring-2" : "",
-                                      "-m-0.5 relative p-0.5 rounded-full flex items-center justify-center cursor-pointer focus:outline-none"
-                                    )
-                                  }
-                                >
-                                  <RadioGroup.Label as="p" className="sr-only">
-                                    {color.name}
-                                  </RadioGroup.Label>
-                                  <span
-                                    aria-hidden="true"
-                                    className={classNames(
-                                      color.class,
-                                      "h-8 w-8 border border-black border-opacity-10 rounded-full"
-                                    )}
-                                  />
-                                </RadioGroup.Option>
-                              ))}
-                            </div>
-                          </RadioGroup>
-                        </div>
-
-                        {/* Sizes */}
+                        {/* VAS */}
                         <div className="mt-10">
                           <div className="flex items-center justify-between">
-                            <h4 className="text-sm text-gray-900 font-medium">
-                              Size
+                            <h4 className="text-sm text-gray-900 font-bold">
+                              Value Added Service
                             </h4>
-                            <a
-                              href="/"
-                              className="text-sm font-medium text-blue-600 hover:text-blue-500"
-                            >
-                              Size guide
-                            </a>
+                            <span className="font-medium text-gray-500">
+                              FREE
+                            </span>
                           </div>
 
                           <RadioGroup
-                            value={selectedSize}
+                            value={[selectedSize]}
                             onChange={setSelectedSize}
                             className="mt-4"
                           >
-                            <RadioGroup.Label className="sr-only">
-                              Choose a size
-                            </RadioGroup.Label>
-                            <div className="grid grid-cols-4 gap-4">
-                              {product.sizes.map((size) => (
+                            <div className="grid grid-cols-2 gap-4">
+                              {product.vas.map((v) => (
                                 <RadioGroup.Option
-                                  key={size.name}
-                                  value={size}
-                                  disabled={!size.inStock}
-                                  className={({ active }) =>
-                                    classNames(
-                                      size.inStock
-                                        ? "bg-white shadow-sm text-gray-900 cursor-pointer"
-                                        : "bg-gray-50 text-gray-200 cursor-not-allowed",
-                                      active ? "ring-2 ring-blue-500" : "",
-                                      "group relative border rounded-md py-3 px-4 flex items-center justify-center text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1"
-                                    )
-                                  }
+                                  key={v.name}
+                                  value={v}
+                                  disabled={!v.inStock}
+                                  className="ring-blue-500 bg-red-600 shadow-sm text-white cursor-pointer group relative border rounded-md py-3 px-4 flex items-center justify-center text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1"
                                 >
-                                  {({ active, checked }) => (
-                                    <>
-                                      <RadioGroup.Label as="p">
-                                        {size.name}
-                                      </RadioGroup.Label>
-                                      {size.inStock ? (
-                                        <div
-                                          className={classNames(
-                                            active ? "border" : "border-2",
-                                            checked
-                                              ? "border-blue-500"
-                                              : "border-transparent",
-                                            "absolute -inset-px rounded-md pointer-events-none"
-                                          )}
-                                          aria-hidden="true"
-                                        />
-                                      ) : (
-                                        <div
-                                          aria-hidden="true"
-                                          className="absolute -inset-px rounded-md border-2 border-gray-200 pointer-events-none"
-                                        >
-                                          <svg
-                                            className="absolute inset-0 w-full h-full text-gray-200 stroke-2"
-                                            viewBox="0 0 100 100"
-                                            preserveAspectRatio="none"
-                                            stroke="currentColor"
-                                          >
-                                            <line
-                                              x1={0}
-                                              y1={100}
-                                              x2={100}
-                                              y2={0}
-                                              vectorEffect="non-scaling-stroke"
-                                            />
-                                          </svg>
-                                        </div>
-                                      )}
-                                    </>
-                                  )}
+                                  <RadioGroup.Label as="p">
+                                    {v.name}
+                                  </RadioGroup.Label>
                                 </RadioGroup.Option>
                               ))}
                             </div>
                           </RadioGroup>
                         </div>
-
-                        <button
-                          type="submit"
-                          className="mt-6 w-full bg-blue-600 border border-transparent rounded-md py-3 px-8 flex items-center justify-center text-base font-medium text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500"
-                        >
-                          Add to bag
-                        </button>
                       </form>
                     </section>
                   </div>
