@@ -25,5 +25,4 @@ yarn test:e2e
 ```
 yarn build
 ```
-
 [Link to Demo](https://react-redux-36fdd.web.app/)
