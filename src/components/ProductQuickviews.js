@@ -22,29 +22,12 @@ import { StarIcon } from "@heroicons/react/solid";
 import NumberFormat from "react-number-format";
 
 const product = {
-  name: "Basic Tee 6-Pack ",
-  price: "$192",
+  name: "",
+  price: 0,
   rating: 3.9,
-  reviewCount: 117,
-  href: "#",
-  imageSrc:
-    "https://tailwindui.com/img/ecommerce-images/product-quick-preview-02-detail.jpg",
-  imageAlt: "Two each of gray, white, and black shirts arranged on table.",
-  colors: [
-    { name: "White", class: "bg-white", selectedClass: "ring-gray-400" },
-    { name: "Gray", class: "bg-gray-200", selectedClass: "ring-gray-400" },
-    { name: "Black", class: "bg-gray-900", selectedClass: "ring-gray-900" }
-  ],
-  vas: [
-    { name: "XXS", inStock: true },
-    { name: "XS", inStock: true },
-    { name: "S", inStock: true },
-    { name: "M", inStock: true },
-    { name: "L", inStock: true },
-    { name: "XL", inStock: true },
-    { name: "XXL", inStock: true },
-    { name: "XXXL", inStock: false }
-  ]
+  imageSrc: "",
+  imageAlt: "",
+  vas: []
 };
 
 const classNames = (...classes) => {
@@ -53,10 +36,6 @@ const classNames = (...classes) => {
 
 const ProductQuickviews = (props) => {
   const [show, setShow] = useState(props.show);
-  const [selectedColor, setSelectedColor] = useState(product.colors[0]);
-  const [selectedSize, setSelectedSize] = useState(product.vas[2]);
-
-  console.log(props.product);
   if (props.product) {
     product.imageSrc = props.product.image;
     product.name = props.product.default_router.name;
@@ -126,7 +105,7 @@ const ProductQuickviews = (props) => {
                 </button>
 
                 <div className="w-full grid grid-cols-1 gap-y-8 gap-x-6 items-start sm:grid-cols-12 lg:gap-x-8">
-                  <div className="aspect-w-2 aspect-h-2 rounded-lg bg-gray-100 overflow-hidden sm:col-span-4 lg:col-span-5">
+                  <div className="shadow-lg aspect-w-2 aspect-h-2 rounded-lg bg-gray-100 overflow-hidden sm:col-span-4 lg:col-span-5 hover:opacity-75">
                     <img
                       src={product.imageSrc}
                       alt={product.imageAlt}
@@ -200,18 +179,14 @@ const ProductQuickviews = (props) => {
                             </span>
                           </div>
 
-                          <RadioGroup
-                            value={[selectedSize]}
-                            onChange={setSelectedSize}
-                            className="mt-4"
-                          >
+                          <RadioGroup className="mt-4">
                             <div className="grid grid-cols-2 gap-4">
                               {product.vas.map((v) => (
                                 <RadioGroup.Option
                                   key={v.name}
                                   value={v}
                                   disabled={!v.inStock}
-                                  className="ring-blue-500 bg-red-600 shadow-sm text-white cursor-pointer group relative border rounded-md py-3 px-4 flex items-center justify-center text-sm font-medium uppercase hover:bg-gray-50 focus:outline-none sm:flex-1"
+                                  className="ring-blue-500 bg-red-600 shadow-sm text-white cursor-pointer group relative border rounded-md py-3 px-4 flex items-center justify-center text-sm font-medium uppercase hover:bg-white hover:text-red-500 focus:outline-none sm:flex-1"
                                 >
                                   <RadioGroup.Label as="p">
                                     {v.name}
